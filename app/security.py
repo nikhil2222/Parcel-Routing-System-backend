@@ -13,7 +13,7 @@ def get_allowed_origins() -> List[str]:
 
 
 def get_trusted_hosts() -> List[str]:
-    raw = os.getenv("TRUSTED_HOSTS", "localhost,127.0.0.1,testserver")
+    raw = os.getenv("TRUSTED_HOSTS", "localhost,127.0.0.1,testserver,parcel-routing-system-backend.onrender.com")
     return [host.strip() for host in raw.split(",") if host.strip()]
 
 
