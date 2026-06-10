@@ -8,7 +8,7 @@ api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 
 
 def get_allowed_origins() -> List[str]:
-    raw = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:3000,http://localhost:5174,https://parcel-routing-system.netlify.app/")
+    raw = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:3000,http://localhost:5174,https://parcel-routing-system.netlify.app")
     return [origin.strip() for origin in raw.split(",") if origin.strip()]
 
 
