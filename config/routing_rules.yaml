@@ -1,0 +1,42 @@
+version: "v1"
+
+rules:
+  - name: "insurance_required"
+    description: "Parcels with value over 1000 EUR require insurance approval"
+    condition:
+      field: "value"
+      operator: ">"
+      threshold: 1000
+    action: "flag:requires_insurance"
+    priority: 100
+    enabled: true
+
+  - name: "mail_department"
+    description: "Parcels up to 1kg go to Mail department"
+    condition:
+      field: "weight"
+      operator: "<="
+      threshold: 1
+    action: "route_to:mail"
+    priority: 50
+    enabled: true
+
+  - name: "regular_department"
+    description: "Parcels above 1kg and up to 10kg go to Regular department"
+    condition:
+      field: "weight"
+      operator: "<="
+      threshold: 10
+    action: "route_to:regular"
+    priority: 40
+    enabled: true
+
+  - name: "heavy_department"
+    description: "Parcels over 10kg go to Heavy department"
+    condition:
+      field: "weight"
+      operator: ">"
+      threshold: 10
+    action: "route_to:heavy"
+    priority: 30
+    enabled: true
