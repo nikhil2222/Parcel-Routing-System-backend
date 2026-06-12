@@ -180,6 +180,16 @@ async def route_batch(
                 "rules_matched": result.rules_matched,
             })
 
+            metrics = request.app.state.metrics
+            metrics.incr("parcels_routed_total")
+            metrics.incr(f"department_{result.department.value}_total")
+            if result.requires_insurance:
+                metrics.incr("parcels_requires_insurance_total")
+                if not result.dispatch_allowed:
+                    metrics.incr("insurance_blocked_total")
+            if result.department.value == "unrouted":
+                metrics.incr("parcels_unrouted_total")
+ 
             results.append(result)
         except Exception as e:
             errors.append({"index": idx, "data": item, "error": str(e)})
